@@ -1,0 +1,5 @@
+# SUNSCAN Python Dependencies
+# Core CLI execution uses standard library (urllib, subprocess, ipaddress, json, unittest)
+# Rich and Questionary provide the enhanced interactive terminal experience
+rich>=13.0.0
+questionary>=2.0.0

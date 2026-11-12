@@ -1,0 +1,7 @@
+{
+  "name": "SUNSCAN - Modular Cybersecurity Toolkit & AI Output Analyzer",
+  "description": "Production-grade cybersecurity catalog, CLI toolkit & AI-powered scan analyzer by CodeSun. Understand every scan, discover every risk.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

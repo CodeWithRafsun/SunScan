@@ -1,0 +1,619 @@
+{
+  "catalog_version": "1.0.0",
+  "generated_at": "2026-11-12T06:30:00Z",
+  "maintainer": "CodeSun",
+  "categories": [
+    {
+      "id": "network-scanning",
+      "name": "Network Scanning",
+      "bangla_name": "নেটওয়ার্ক স্ক্যানিং",
+      "description": "Host discovery, port identification, service fingerprinting, and network topology mapping."
+    },
+    {
+      "id": "web-security",
+      "name": "Web Security Scanning",
+      "bangla_name": "ওয়েব সিকিউরিটি স্ক্যানিং",
+      "description": "Web server configuration auditing, CMS detection, outdated components, and endpoint security checks."
+    },
+    {
+      "id": "sql-injection",
+      "name": "SQL Injection Testing",
+      "bangla_name": "এসকিউএল ইনজেকশন টেস্টিং",
+      "description": "Database parameter verification, blind SQLi timing tests, and defensive database posture review."
+    },
+    {
+      "id": "directory-discovery",
+      "name": "Directory & Content Discovery",
+      "bangla_name": "ডিরেক্টরি ও কনটেন্ট ডিসকভারি",
+      "description": "Web route brute-forcing, sensitive file discovery, API endpoint spidering, and hidden resource mapping."
+    },
+    {
+      "id": "dns-recon",
+      "name": "DNS Reconnaissance",
+      "bangla_name": "ডিএনএস রিকন বা তথ্য অনুসন্ধান",
+      "description": "Subdomain discovery, DNS record auditing, zone transfer verification, and misconfiguration checks."
+    },
+    {
+      "id": "ssl-tls",
+      "name": "SSL/TLS Analysis",
+      "bangla_name": "এসএসএল/টিএলএস ক্রিপ্টোগ্রাফিক অ্যানালাইসিস",
+      "description": "Certificate chain validation, deprecated protocol audits, weak cipher detection, and TLS compliance."
+    },
+    {
+      "id": "packet-analysis",
+      "name": "Packet Analysis & Monitoring",
+      "bangla_name": "প্যাকেট অ্যানালাইসিস ও নেটওয়ার্ক মনিটরিং",
+      "description": "Deep packet inspection, network flow analysis, protocol dissection, and suspicious payload detection."
+    },
+    {
+      "id": "network-enumeration",
+      "name": "Network Enumeration",
+      "bangla_name": "নেটওয়ার্ক প্রটোকল এনামারেশন",
+      "description": "SMB, LDAP, SNMP, RPC, and NetBIOS service auditing and permission verification."
+    },
+    {
+      "id": "vulnerability-assessment",
+      "name": "Vulnerability Assessment",
+      "bangla_name": "ভালনারেবিলিটি বা দুর্বলতা অ্যাসেসমেন্ট",
+      "description": "Software composition analysis, known CVE checks, system hardening compliance, and container security."
+    },
+    {
+      "id": "osint",
+      "name": "OSINT & Reconnaissance",
+      "bangla_name": "ওপেন সোর্স ইন্টেলিজেন্স (OSINT)",
+      "description": "Public domain information gathering, email harvesting, social identity discovery, and credential leakage audits."
+    },
+    {
+      "id": "cloud-security",
+      "name": "Cloud & Container Security",
+      "bangla_name": "ক্লাউড ও কনটেইনার সিকিউরিটি",
+      "description": "IaC misconfiguration audits, Kubernetes CIS compliance, and multi-cloud posture review."
+    },
+    {
+      "id": "code-security",
+      "name": "Source Code Security (SAST)",
+      "bangla_name": "সোর্স কোড সিকিউরিটি ও লিন্টিং",
+      "description": "Static application security testing, secret detection in Git history, and secure coding audits."
+    }
+  ],
+  "tools": [
+    {
+      "id": "nmap",
+      "name": "Nmap",
+      "category": "network-scanning",
+      "description": "The gold-standard network discovery and security auditing utility.",
+      "bangla_description": "নেটওয়ার্ক ডিসকভারি এবং সিকিউরিটি অডিটিংয়ের সবচেয়ে নির্ভরযোগ্য ও প্রামাণ্য টুল।",
+      "official_url": "https://nmap.org/",
+      "repository": "https://github.com/nmap/nmap",
+      "platforms": ["linux", "kali", "debian", "ubuntu", "arch", "fedora", "macos", "termux"],
+      "installers": ["apt", "pkg", "pacman", "dnf", "brew"],
+      "executable": "nmap",
+      "requires_root": false,
+      "supports_json": false,
+      "supports_xml": true,
+      "installation_verified": true,
+      "commands": [
+        {
+          "id": "nmap-host-discovery",
+          "name": "Host Discovery (Ping Sweep)",
+          "level": "basic",
+          "purpose": "Verify which IP addresses are online without initiating port scans.",
+          "bangla_purpose": "পোর্ট স্ক্যান না করেই কোন হোস্টগুলো সচল আছে তা নির্ণয় করা।",
+          "command_template": "nmap -sn {target}",
+          "args": ["-sn"],
+          "risk": "low",
+          "time_estimate": "10-30s",
+          "requires_root": false,
+          "authorization_notice": "Safe for inventory on authorized corporate or lab subnets."
+        },
+        {
+          "id": "nmap-service-detect",
+          "name": "Service Version & Safe Default Script Scan",
+          "level": "basic",
+          "purpose": "Probe open ports to determine service names, server software versions, and standard informational scripts.",
+          "bangla_purpose": "ওপেন পোর্টগুলোর সার্ভিস নাম, ভার্সন ও সাধারণ তথ্য সংগ্রহ করা।",
+          "command_template": "nmap -sV -sC -Pn -T3 {target}",
+          "args": ["-sV", "-sC", "-Pn", "-T3"],
+          "risk": "low",
+          "time_estimate": "1-3m",
+          "requires_root": false,
+          "authorization_notice": "Requires explicit testing authorization from the asset owner."
+        },
+        {
+          "id": "nmap-top-ports",
+          "name": "Top 100 Ports Quick Connect Scan",
+          "level": "basic",
+          "purpose": "Fast unprivileged TCP connect scan against the most frequent 100 network ports.",
+          "bangla_purpose": "সবচেয়ে বেশি ব্যবহৃত ১০০টি পোর্টে দ্রুত আনপ্রিভিলেজড কানেক্ট স্ক্যান।",
+          "command_template": "nmap -sT --top-ports 100 -T3 {target}",
+          "args": ["-sT", "--top-ports", "100", "-T3"],
+          "risk": "low",
+          "time_estimate": "15-45s",
+          "requires_root": false,
+          "authorization_notice": "Non-invasive unprivileged scan, 100% compatible with Termux and unrooted hosts."
+        },
+        {
+          "id": "nmap-os-syn",
+          "name": "OS Fingerprint & SYN Stealth Scan",
+          "level": "intermediate",
+          "purpose": "Analyze TCP/IP stack behavior to fingerprint operating system and open ports.",
+          "bangla_purpose": "টিসিপি/আইপি স্ট্যাক রেসপন্স বিশ্লেষণ করে ওএস ও পোর্ট শনাক্তকরণ।",
+          "command_template": "nmap -sS -O -T3 {target}",
+          "args": ["-sS", "-O", "-T3"],
+          "risk": "medium",
+          "time_estimate": "1-4m",
+          "requires_root": true,
+          "authorization_notice": "Requires root/raw socket privileges (CAP_NET_RAW). Not supported on rootless Termux."
+        },
+        {
+          "id": "nmap-vuln-audit",
+          "name": "NSE Vulnerability Auditing Scripts",
+          "level": "advanced",
+          "purpose": "Execute NSE vulnerability scripts (vuln category) against discovered open services.",
+          "bangla_purpose": "এনম্যাপের ভালনারেবিলিটি স্ক্রিপ্ট চালিয়ে পরিচিত দুর্বলতাগুলো যাচাই করা।",
+          "command_template": "nmap -sV --script=vuln -T2 {target}",
+          "args": ["-sV", "--script=vuln", "-T2"],
+          "risk": "medium",
+          "time_estimate": "3-8m",
+          "requires_root": false,
+          "authorization_notice": "May generate multiple HTTP/service probes. Use strictly on authorized assets."
+        }
+      ]
+    },
+    {
+      "id": "whatweb",
+      "name": "WhatWeb",
+      "category": "web-security",
+      "description": "Next generation web scanner identifying CMS, JS libraries, web servers, and embedded technologies.",
+      "bangla_description": "ওয়েব সার্ভার প্রযুক্তি, সিএমএস, প্লাগইন ও লাইব্রেরি শনাক্তকরণের চমৎকার প্যাসিভ টুল।",
+      "official_url": "https://morningstarsecurity.com/research/whatweb",
+      "repository": "https://github.com/urbanadventurer/WhatWeb",
+      "platforms": ["linux", "kali", "debian", "ubuntu", "macos", "termux"],
+      "installers": ["apt", "pkg", "gem"],
+      "executable": "whatweb",
+      "requires_root": false,
+      "supports_json": true,
+      "supports_xml": false,
+      "installation_verified": true,
+      "commands": [
+        {
+          "id": "whatweb-passive",
+          "name": "Passive Technology Identification",
+          "level": "basic",
+          "purpose": "Identify web server headers, cookies, and HTML tags without generating invasive requests.",
+          "bangla_purpose": "কোনো অতিরিক্ত ট্রাফিক তৈরি না করে সাধারণ রেসপন্স থেকে ওয়েব প্রযুক্তি শনাক্ত করা।",
+          "command_template": "whatweb -a 1 --log-json=- {target}",
+          "args": ["-a", "1", "--log-json=-"],
+          "risk": "low",
+          "time_estimate": "5-15s",
+          "requires_root": false,
+          "authorization_notice": "Completely passive analysis of public HTTP headers."
+        },
+        {
+          "id": "whatweb-detailed",
+          "name": "Aggressive Technology & Version Probe",
+          "level": "intermediate",
+          "purpose": "Query specific plugin paths and favicon hashes to verify exact software versions.",
+          "bangla_purpose": "প্লাগইন ও ফ্যাভিকন হ্যাশ মিলিয়ে সফটওয়্যারের নিখুঁত ভার্সন বের করা।",
+          "command_template": "whatweb -a 3 --log-json=- {target}",
+          "args": ["-a", "3", "--log-json=-"],
+          "risk": "low",
+          "time_estimate": "15-30s",
+          "requires_root": false,
+          "authorization_notice": "Standard diagnostic probe, generates a modest number of polite GET requests."
+        }
+      ]
+    },
+    {
+      "id": "nikto",
+      "name": "Nikto",
+      "category": "web-security",
+      "description": "Open source web server scanner for dangerous files, outdated versions, and server misconfigurations.",
+      "bangla_description": "ওয়েব সার্ভারের কনফিগারেশন ত্রুটি এবং বিপজ্জনক ফাইল খোঁজার ওপেন-সোর্স স্ক্যানার।",
+      "official_url": "https://cirt.net/Nikto2",
+      "repository": "https://github.com/sullo/nikto",
+      "platforms": ["linux", "kali", "debian", "ubuntu", "arch", "macos", "termux"],
+      "installers": ["apt", "pkg", "pacman"],
+      "executable": "nikto",
+      "requires_root": false,
+      "supports_json": true,
+      "supports_xml": true,
+      "installation_verified": true,
+      "commands": [
+        {
+          "id": "nikto-standard",
+          "name": "Standard Web Server Audit",
+          "level": "basic",
+          "purpose": "Scan for outdated software headers, dangerous HTTP methods, and known security weaknesses.",
+          "bangla_purpose": "সার্ভার হেডার, বিপজ্জনক এইচটিটিপি মেথড ও পরিচিত ত্রুটি স্ক্যান।",
+          "command_template": "nikto -h {target} -Format json -o -",
+          "args": ["-h", "{target}", "-Format", "json", "-o", "-"],
+          "risk": "medium",
+          "time_estimate": "2-5m",
+          "requires_root": false,
+          "authorization_notice": "Will trigger IDS/WAF alerts. Ensure test authorization is documented."
+        },
+        {
+          "id": "nikto-ssl-check",
+          "name": "HTTPS Configuration & Certificate Audit",
+          "level": "intermediate",
+          "purpose": "Audit HTTPS certificate validity, ciphers, and secure headers.",
+          "bangla_purpose": "এইচটিটিপিএস সার্টিফিকেট ও সিকিউর হেডার অডিট।",
+          "command_template": "nikto -h {target} -ssl -Format json -o -",
+          "args": ["-h", "{target}", "-ssl", "-Format", "json", "-o", "-"],
+          "risk": "low",
+          "time_estimate": "1-3m",
+          "requires_root": false,
+          "authorization_notice": "Standard TLS audit on target web servers."
+        }
+      ]
+    },
+    {
+      "id": "feroxbuster",
+      "name": "Feroxbuster",
+      "category": "directory-discovery",
+      "description": "High-performance recursive content and route discovery tool written in Rust.",
+      "bangla_description": "রাস্টে তৈরি দ্রুতগতির রিকার্সিভ ওয়েব ডিরেক্টরি ও রাউট ডিসকভারি টুল।",
+      "official_url": "https://epi052.github.io/feroxbuster/",
+      "repository": "https://github.com/epi052/feroxbuster",
+      "platforms": ["linux", "kali", "debian", "ubuntu", "arch", "macos"],
+      "installers": ["apt", "cargo", "brew", "pacman"],
+      "executable": "feroxbuster",
+      "requires_root": false,
+      "supports_json": true,
+      "supports_xml": false,
+      "installation_verified": true,
+      "commands": [
+        {
+          "id": "ferox-basic-discovery",
+          "name": "Polite Directory Discovery",
+          "level": "basic",
+          "purpose": "Discover existing endpoints with rate limiting and non-invasive thread count.",
+          "bangla_purpose": "নিয়ন্ত্রিত গতিতে ওয়েব ডিরেক্টরি ও ফাইল শনাক্ত করা।",
+          "command_template": "feroxbuster -u {target} -d 1 -t 10 --json",
+          "args": ["-u", "{target}", "-d", "1", "-t", "10", "--json"],
+          "risk": "low",
+          "time_estimate": "30s-1m",
+          "requires_root": false,
+          "authorization_notice": "Configured for polite 10-thread non-recursive probing."
+        },
+        {
+          "id": "ferox-depth-scan",
+          "name": "Recursive Depth-2 Directory Spider",
+          "level": "intermediate",
+          "purpose": "Recursively spider into discovered folders up to depth 2.",
+          "bangla_purpose": "খুঁজে পাওয়া ফোল্ডারের ভেতর ২ লেভেল পর্যন্ত রিকার্সিভ অনুসন্ধান।",
+          "command_template": "feroxbuster -u {target} -d 2 -t 20 --json",
+          "args": ["-u", "{target}", "-d", "2", "-t", "20", "--json"],
+          "risk": "medium",
+          "time_estimate": "1-3m",
+          "requires_root": false,
+          "authorization_notice": "Generates moderate HTTP request volume. Confirm authorization."
+        }
+      ]
+    },
+    {
+      "id": "dirsearch",
+      "name": "Dirsearch",
+      "category": "directory-discovery",
+      "description": "Feature-rich web path scanner written in Python with intelligent response analysis.",
+      "bangla_description": "পাইথনে তৈরি জনপ্রিয় ওয়েব পাথ ও ফাইল স্ক্যানার।",
+      "official_url": "https://github.com/maurosoria/dirsearch",
+      "repository": "https://github.com/maurosoria/dirsearch",
+      "platforms": ["linux", "kali", "debian", "ubuntu", "arch", "macos", "termux"],
+      "installers": ["apt", "pkg", "pip"],
+      "executable": "dirsearch",
+      "requires_root": false,
+      "supports_json": true,
+      "supports_xml": false,
+      "installation_verified": true,
+      "commands": [
+        {
+          "id": "dirsearch-common",
+          "name": "Common Extensions & Status Audit",
+          "level": "basic",
+          "purpose": "Scan target for common extensions (php, html, json, txt) with clean JSON output.",
+          "bangla_purpose": "সাধারণ এক্সটেনশনযুক্ত ফাইল ও পথ খুঁজে বের করা।",
+          "command_template": "dirsearch -u {target} -e php,html,js,json,txt --format=json -t 15",
+          "args": ["-u", "{target}", "-e", "php,html,js,json,txt", "--format=json", "-t", "15"],
+          "risk": "low",
+          "time_estimate": "45s-2m",
+          "requires_root": false,
+          "authorization_notice": "Target must be an owned or authorized web application."
+        }
+      ]
+    },
+    {
+      "id": "subfinder",
+      "name": "Subfinder",
+      "category": "dns-recon",
+      "description": "Fast passive subdomain enumeration tool querying 40+ public intelligence sources.",
+      "bangla_description": "সম্পূর্ণ প্যাসিভ পদ্ধতিতে ৪০+ পাবলিক সোর্স থেকে সাবডোমেন খোঁজার দ্রুততম টুল।",
+      "official_url": "https://projectdiscovery.io/",
+      "repository": "https://github.com/projectdiscovery/subfinder",
+      "platforms": ["linux", "kali", "debian", "ubuntu", "arch", "macos", "termux"],
+      "installers": ["go", "brew", "apt"],
+      "executable": "subfinder",
+      "requires_root": false,
+      "supports_json": true,
+      "supports_xml": false,
+      "installation_verified": true,
+      "commands": [
+        {
+          "id": "subfinder-passive",
+          "name": "Passive Subdomain Enumeration",
+          "level": "basic",
+          "purpose": "Gather known subdomains from public Certificate Transparency logs and OSINT archives without touching target servers.",
+          "bangla_purpose": "টার্গেট সার্ভারে কোনো রিকোয়েস্ট না পাঠিয়ে সম্পূর্ণ প্যাসিভ সাবডোমেন তালিকা সংগ্রহ।",
+          "command_template": "subfinder -d {target} -oJ -silent",
+          "args": ["-d", "{target}", "-oJ", "-silent"],
+          "risk": "low",
+          "time_estimate": "10-25s",
+          "requires_root": false,
+          "authorization_notice": "Completely passive OSINT query against public registries."
+        }
+      ]
+    },
+    {
+      "id": "dnsrecon",
+      "name": "DNSRecon",
+      "category": "dns-recon",
+      "description": "Comprehensive DNS reconnaissance script checking records, AXFR, and SPF configurations.",
+      "bangla_description": "ডিএনএস রেকর্ড, জোন ট্রান্সফার (AXFR) এবং কনফিগারেশন যাচাইয়ের চমৎকার টুল।",
+      "official_url": "https://github.com/darkoperator/dnsrecon",
+      "repository": "https://github.com/darkoperator/dnsrecon",
+      "platforms": ["linux", "kali", "debian", "ubuntu", "macos", "termux"],
+      "installers": ["apt", "pip"],
+      "executable": "dnsrecon",
+      "requires_root": false,
+      "supports_json": true,
+      "supports_xml": true,
+      "installation_verified": true,
+      "commands": [
+        {
+          "id": "dnsrecon-std",
+          "name": "Standard DNS Record & Zone Transfer Audit",
+          "level": "basic",
+          "purpose": "Enumerate SOA, NS, MX, A, AAAA, TXT records and test authoritative name servers for misconfigured AXFR zone transfers.",
+          "bangla_purpose": "সব ধরনের ডিএনএস রেকর্ড সংগ্রহ এবং জোন ট্রান্সফার ত্রুটি পরীক্ষা।",
+          "command_template": "dnsrecon -d {target} -j -",
+          "args": ["-d", "{target}", "-j", "-"],
+          "risk": "low",
+          "time_estimate": "10-30s",
+          "requires_root": false,
+          "authorization_notice": "Queries public authoritative name servers for standard resource records."
+        }
+      ]
+    },
+    {
+      "id": "testssl",
+      "name": "testssl.sh",
+      "category": "ssl-tls",
+      "description": "Bash command-line tool testing TLS ciphers, certificate validation, and known vulnerabilities (POODLE, Heartbleed, ROBOT).",
+      "bangla_description": "সার্ভারের টিএলএস সাইফার, সার্টিফিকেট চেইন ও সাইফার দুর্বলতা যাচাইয়ের আদর্শ টুল।",
+      "official_url": "https://testssl.sh/",
+      "repository": "https://github.com/drwetter/testssl.sh",
+      "platforms": ["linux", "kali", "debian", "ubuntu", "arch", "macos", "termux"],
+      "installers": ["apt", "pkg", "git"],
+      "executable": "testssl.sh",
+      "requires_root": false,
+      "supports_json": true,
+      "supports_xml": false,
+      "installation_verified": true,
+      "commands": [
+        {
+          "id": "testssl-fast",
+          "name": "Quick Protocol & Vulnerability Baseline",
+          "level": "basic",
+          "purpose": "Check server supported protocols (TLS 1.2, 1.3), deprecated SSLv2/SSLv3, and top crypto vulnerabilities.",
+          "bangla_purpose": "সার্ভারে টিএলএস ভার্সন ও গুরুতর ক্রিপ্টোগ্রাফিক ত্রুটি পরীক্ষা।",
+          "command_template": "testssl.sh --fast --json-pretty - {target}",
+          "args": ["--fast", "--json-pretty", "-", "{target}"],
+          "risk": "low",
+          "time_estimate": "30s-1m",
+          "requires_root": false,
+          "authorization_notice": "Standard TLS handshake probing, safe for authorized staging and production assets."
+        }
+      ]
+    },
+    {
+      "id": "sslyze",
+      "name": "SSLyze",
+      "category": "ssl-tls",
+      "description": "Fast and comprehensive TLS configuration analyzer written in Python.",
+      "bangla_description": "পাইথনে তৈরি দ্রুত ও গভীর টিএলএস কনফিগারেশন অডিটর।",
+      "official_url": "https://github.com/nabla-c0d3/sslyze",
+      "repository": "https://github.com/nabla-c0d3/sslyze",
+      "platforms": ["linux", "kali", "debian", "ubuntu", "macos"],
+      "installers": ["pip", "apt"],
+      "executable": "sslyze",
+      "requires_root": false,
+      "supports_json": true,
+      "supports_xml": false,
+      "installation_verified": true,
+      "commands": [
+        {
+          "id": "sslyze-regular",
+          "name": "Regular TLS Security Scan",
+          "level": "basic",
+          "purpose": "Verify certificate validity, trust chain, OCSP stapling, and cipher suite support.",
+          "bangla_purpose": "সার্টিফিকেট ভ্যালিডিটি, ট্রাস্ট চেইন এবং সাইফার সুইট বিশ্লেষণ।",
+          "command_template": "sslyze --json_out=- {target}",
+          "args": ["--json_out=-", "{target}"],
+          "risk": "low",
+          "time_estimate": "15-45s",
+          "requires_root": false,
+          "authorization_notice": "Standard cryptographic handshake verification."
+        }
+      ]
+    },
+    {
+      "id": "sqlmap",
+      "name": "SQLMap",
+      "category": "sql-injection",
+      "description": "Automatic SQL injection detection and database security verification tool.",
+      "bangla_description": "ডাটাবেস সিকিউরিটি ও এসকিউএল ইনজেকশন ভ্যালিডেশনের স্বয়ংক্রিয় টুল।",
+      "official_url": "https://sqlmap.org/",
+      "repository": "https://github.com/sqlmapproject/sqlmap",
+      "platforms": ["linux", "kali", "debian", "ubuntu", "arch", "macos", "termux"],
+      "installers": ["apt", "pkg", "pip"],
+      "executable": "sqlmap",
+      "requires_root": false,
+      "supports_json": false,
+      "supports_xml": false,
+      "installation_verified": true,
+      "commands": [
+        {
+          "id": "sqlmap-safe-test",
+          "name": "Safe Non-Destructive Parameter Verification",
+          "level": "basic",
+          "purpose": "Test target URL parameters with minimal non-invasive payloads at level 1, risk 1 without altering database state.",
+          "bangla_purpose": "ডাটাবেসের কোনো ক্ষতি না করে লেভেল-১ ও রিস্ক-১ সহকারে নিরাপদ ইনপুট পরীক্ষা।",
+          "command_template": "sqlmap -u \"{target}\" --batch --level=1 --risk=1",
+          "args": ["-u", "{target}", "--batch", "--level=1", "--risk=1"],
+          "risk": "low",
+          "time_estimate": "30s-2m",
+          "requires_root": false,
+          "authorization_notice": "Strictly restricted to non-destructive testing on owned or authorized systems."
+        }
+      ]
+    },
+    {
+      "id": "nuclei",
+      "name": "Nuclei",
+      "category": "vulnerability-assessment",
+      "description": "Fast and customizable vulnerability scanner powered by community-maintained YAML templates.",
+      "bangla_description": "কমিউনিটি ইয়ামল টেমপ্লেটের মাধ্যমে দ্রুত সিকিউরিটি দুর্বলতা শনাক্তকরণ।",
+      "official_url": "https://projectdiscovery.io/",
+      "repository": "https://github.com/projectdiscovery/nuclei",
+      "platforms": ["linux", "kali", "debian", "ubuntu", "arch", "macos", "termux"],
+      "installers": ["go", "brew", "apt"],
+      "executable": "nuclei",
+      "requires_root": false,
+      "supports_json": true,
+      "supports_xml": false,
+      "installation_verified": true,
+      "commands": [
+        {
+          "id": "nuclei-tech-detect",
+          "name": "Technologies & Misconfiguration Detection",
+          "level": "basic",
+          "purpose": "Audit exposed panels, software versions, and standard misconfigurations with low risk.",
+          "bangla_purpose": "উন্মুক্ত অ্যাডমিন প্যানেল, সফটওয়্যার ও কনফিগারেশন অডিট।",
+          "command_template": "nuclei -u {target} -tags exposure,tech -severity info,low -j",
+          "args": ["-u", "{target}", "-tags", "exposure,tech", "-severity", "info,low", "-j"],
+          "risk": "low",
+          "time_estimate": "20s-1m",
+          "requires_root": false,
+          "authorization_notice": "Safe informational queries against web applications."
+        },
+        {
+          "id": "nuclei-cve-audit",
+          "name": "Known CVE Vulnerability Audit",
+          "level": "intermediate",
+          "purpose": "Check target against known CVE signatures to identify unpatched software.",
+          "bangla_purpose": "পরিচিত সিভিই দুর্বলতা ও অনিরাপদ সফটওয়্যার শনাক্তকরণ।",
+          "command_template": "nuclei -u {target} -tags cve -severity low,medium,high -j",
+          "args": ["-u", "{target}", "-tags", "cve", "-severity", "low,medium,high", "-j"],
+          "risk": "medium",
+          "time_estimate": "1-3m",
+          "requires_root": false,
+          "authorization_notice": "Requires signed customer authorization or verified asset ownership."
+        }
+      ]
+    },
+    {
+      "id": "theharvester",
+      "name": "theHarvester",
+      "category": "osint",
+      "description": "OSINT reconnaissance tool gathering public domain emails, subdomains, hosts, and employee information.",
+      "bangla_description": "পাবলিক সোর্স থেকে ইমেইল, হোস্ট ও সাবডোমেনের তথ্য সংগ্রহের প্রধান ওএসআইএনটি টুল।",
+      "official_url": "https://github.com/laramies/theHarvester",
+      "repository": "https://github.com/laramies/theHarvester",
+      "platforms": ["linux", "kali", "debian", "ubuntu", "macos", "termux"],
+      "installers": ["apt", "pip"],
+      "executable": "theHarvester",
+      "requires_root": false,
+      "supports_json": true,
+      "supports_xml": true,
+      "installation_verified": true,
+      "commands": [
+        {
+          "id": "theharvester-search",
+          "name": "Public Search Engine OSINT Audit",
+          "level": "basic",
+          "purpose": "Query public search engines (Bing, DuckDuckGo, Yahoo) for domain intelligence without interacting with the target.",
+          "bangla_purpose": "পাবলিক সার্চ ইঞ্জিন ব্যবহার করে ডোমেইনের উন্মুক্ত তথ্য অনুসন্ধান।",
+          "command_template": "theHarvester -d {target} -b bing,duckduckgo,yahoo -f report.json",
+          "args": ["-d", "{target}", "-b", "bing,duckduckgo,yahoo", "-f", "report.json"],
+          "risk": "low",
+          "time_estimate": "30s-1m",
+          "requires_root": false,
+          "authorization_notice": "100% passive query against third-party public search indexes."
+        }
+      ]
+    },
+    {
+      "id": "sherlock",
+      "name": "Sherlock",
+      "category": "osint",
+      "description": "Hunt down social media and online platform accounts by handle across 400+ websites.",
+      "bangla_description": "নির্দিষ্ট ইউজারনেম দিয়ে ৪০০+ ওয়েবসাইটে অ্যাকাউন্ট যাচাই করার প্যাসিভ টুল।",
+      "official_url": "https://sherlock-project.github.io/",
+      "repository": "https://github.com/sherlock-project/sherlock",
+      "platforms": ["linux", "kali", "debian", "ubuntu", "macos", "termux"],
+      "installers": ["apt", "pkg", "pip"],
+      "executable": "sherlock",
+      "requires_root": false,
+      "supports_json": true,
+      "supports_xml": false,
+      "installation_verified": true,
+      "commands": [
+        {
+          "id": "sherlock-user-search",
+          "name": "Social Handle Identity Discovery",
+          "level": "basic",
+          "purpose": "Check if a username exists across social media and developer communities.",
+          "bangla_purpose": "সোশ্যাল মিডিয়া ও ডেভেলপার প্ল্যাটফর্মে ইউজারনেম উপস্থিতি যাচাই।",
+          "command_template": "sherlock {target} --timeout 5 --print-found",
+          "args": ["{target}", "--timeout", "5", "--print-found"],
+          "risk": "low",
+          "time_estimate": "30s-1m",
+          "requires_root": false,
+          "authorization_notice": "Passive public profile lookup."
+        }
+      ]
+    },
+    {
+      "id": "semgrep",
+      "name": "Semgrep",
+      "category": "code-security",
+      "description": "Fast, lightweight static analysis engine for finding security flaws and enforcing security standards.",
+      "bangla_description": "সোর্স কোডের নিরাপত্তা ত্রুটি ও অনিরাপদ প্যাটার্ন শনাক্ত করার স্ট্যাটিক স্ক্যানার।",
+      "official_url": "https://semgrep.dev/",
+      "repository": "https://github.com/semgrep/semgrep",
+      "platforms": ["linux", "kali", "debian", "ubuntu", "macos"],
+      "installers": ["pip", "brew"],
+      "executable": "semgrep",
+      "requires_root": false,
+      "supports_json": true,
+      "supports_xml": false,
+      "installation_verified": true,
+      "commands": [
+        {
+          "id": "semgrep-security-audit",
+          "name": "Local Source Code Security Audit",
+          "level": "basic",
+          "purpose": "Scan repository files using OWASP Top 10 rulesets to detect hardcoded secrets and code vulnerabilities.",
+          "bangla_purpose": "ওওয়াস্প টপ ১০ রুলসেটের সাহায্যে সোর্স কোডে সিকিউরিটি ত্রুটি ও গোপন কি খোঁজা।",
+          "command_template": "semgrep scan --config auto --json -o semgrep-report.json",
+          "args": ["scan", "--config", "auto", "--json", "-o", "semgrep-report.json"],
+          "risk": "low",
+          "time_estimate": "15-45s",
+          "requires_root": false,
+          "authorization_notice": "Executes locally on source repository files without network interaction."
+        }
+      ]
+    }
+  ]
+}
